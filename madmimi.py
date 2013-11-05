@@ -5,11 +5,11 @@ import json
 
 madmimi_apikey = ''
 madmimi_email = ''
-
+madmimi_url = 'http://api.madmimi.com'
 
 def carrega(url, method, body={}, HEADERS_APP=None):
 
-    url = 'http://api.madmimi.com/%s&username=%s&api_key=%s' % (url, madmimi_email, madmimi_apikey)
+    url = '%s/%s&username=%s&api_key=%s' % (madmimi_url, url, madmimi_email, madmimi_apikey)
 
     if method == "get":
         data = requests.get(
@@ -38,11 +38,11 @@ def alterar_lista(lista_antiga, lista_nova):
         return data['success']
     return False
 
-def remover_lista(nome):
-    data = carrega('audience_lists/%s?_method=delete' % nome, 'POST', { '_method': 'delete' })
-    if data:
-        return data['success']
-    return False
+# def remover_lista(nome):
+#     data = carrega('audience_lists/%s?_method=delete' % nome, 'POST', { '_method': 'delete' })
+#     if data:
+#         return data['success']
+#     return False
 
 def novo_email(lista, email):
     data = carrega('audience_lists/%s/add?email=%s' % (lista, email), 'POST')
